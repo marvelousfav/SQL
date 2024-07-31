@@ -51,3 +51,16 @@ SELECT geo_name,
        p0010004 AS "Black Alone",
        p0010003 + p0010004 AS "Total White and Black"
 FROM us_counties_2010;
+
+-- Listing 5-6: Checking Census data totals
+
+SELECT geo_name,
+       state_us_abbreviation AS "st",
+       p0010001 AS "Total",
+       p0010003 + p0010004 + p0010005 + p0010006 + p0010007
+           + p0010008 + p0010009 AS "All Races",
+       (p0010003 + p0010004 + p0010005 + p0010006 + p0010007
+           + p0010008 + p0010009) - p0010001 AS "Difference"
+FROM us_counties_2010
+ORDER BY "Difference" DESC;
+
