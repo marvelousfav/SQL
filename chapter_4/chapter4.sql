@@ -160,3 +160,29 @@ WITH (FORMAT CSV, HEADER);
 
 -- Check the data
 SELECT * FROM supervisor_salaries LIMIT 2;
+
+-- Listing 4-6 Use a temporary table to add a default value to a column during
+-- import
+
+DELETE FROM supervisor_salaries;
+
+CREATE TEMPORARY TABLE supervisor_salaries_temp (LIKE supervisor_salaries);
+
+COPY supervisor_salaries_temp (town, supervisor, salary)
+FROM 'C:\bootcamp.docs\5_SQL\my_work\chapter_4\supervisor_salaries.csv'
+WITH (FORMAT CSV, HEADER);
+
+INSERT INTO supervisor_salaries (town, county, supervisor, salary)
+SELECT town, 'Some County', supervisor, salary
+FROM supervisor_salaries_temp;
+
+DROP TABLE supervisor_salaries_temp;
+
+-- Check the data
+SELECT * FROM supervisor_salaries LIMIT 2;
+
+-- Listing 4-7: Export an entire table with COPY
+
+COPY us_counties_2010
+TO 'C:\YourDirectory\us_counties_export.txt'
+WITH (FORMAT CSV, HEADER, DELIMITER '|');
