@@ -124,5 +124,39 @@ SELECT * FROM us_counties_2010;
 -- Windows users: Please check the Note on page xxvii as well.
 
 COPY us_counties_2010
-FROM 'C:\bootcamp.docs\5_SQL\my_work\chapter_4\us_counties_2010.csv'
+FROM 'c:\bootcamp.docs\5_SQL\my_work\chapter_4\us_counties_2010.csv'
 WITH (FORMAT CSV, HEADER);
+
+-- Checking the data
+
+SELECT * FROM us_counties_2010;
+
+SELECT geo_name, state_us_abbreviation, area_land
+FROM us_counties_2010
+ORDER BY area_land DESC
+LIMIT 3;
+
+SELECT geo_name, state_us_abbreviation, internal_point_lon
+FROM us_counties_2010
+ORDER BY internal_point_lon DESC
+LIMIT 5;
+
+-- Listing 4-4: Creating a table to track supervisor salaries
+
+CREATE TABLE supervisor_salaries (
+    town varchar(30),
+    county varchar(30),
+    supervisor varchar(30),
+    start_date date,
+    salary money,
+    benefits money
+);
+
+-- Listing 4-5: Importing salaries data from CSV to three table columns
+
+COPY supervisor_salaries (town, supervisor, salary)
+FROM 'C:\bootcamp.docs\5_SQL\my_work\chapter_4\supervisor_salaries.csv'
+WITH (FORMAT CSV, HEADER);
+
+-- Check the data
+SELECT * FROM supervisor_salaries LIMIT 2;
