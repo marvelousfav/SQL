@@ -184,5 +184,21 @@ SELECT * FROM supervisor_salaries LIMIT 2;
 -- Listing 4-7: Export an entire table with COPY
 
 COPY us_counties_2010
-TO 'C:\YourDirectory\us_counties_export.txt'
+TO 'C:\bootcamp.docs\5_SQL\my_work\chapter_4\us_counties_export.txt'
+WITH (FORMAT CSV, HEADER, DELIMITER '|');
+
+-- Listing 4-8: Exporting selected columns from a table with COPY
+
+COPY us_counties_2010 (geo_name, internal_point_lat, internal_point_lon)
+TO 'C:\bootcamp.docs\5_SQL\my_work\chapter_4\us_counties_latlon_export.txt'
+WITH (FORMAT CSV, HEADER, DELIMITER '|');
+
+-- Listing 4-9: Exporting query results with COPY
+
+COPY (
+    SELECT geo_name, state_us_abbreviation
+    FROM us_counties_2010
+    WHERE geo_name ILIKE '%mill%'
+     )
+TO 'C:\bootcamp.docs\5_SQL\my_work\chapter_4\us_counties_mill_export.txt'
 WITH (FORMAT CSV, HEADER, DELIMITER '|');
