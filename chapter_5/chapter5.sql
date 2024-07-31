@@ -97,3 +97,32 @@ SELECT department,
                     spend_2014 * 100, 1 ) AS "pct_change"
 FROM percent_change;
 
+-- Listing 5-9: Using sum() and avg() aggregate functions
+
+SELECT sum(p0010001) AS "County Sum",
+       round(avg(p0010001), 0) AS "County Average"
+FROM us_counties_2010;
+
+-- Listing 5-10: Testing SQL percentile functions
+
+CREATE TABLE percentile_test (
+    numbers integer
+);
+
+INSERT INTO percentile_test (numbers) VALUES
+    (1), (2), (3), (4), (5), (6);
+
+SELECT
+    percentile_cont(.5)
+    WITHIN GROUP (ORDER BY numbers),
+    percentile_disc(.5)
+    WITHIN GROUP (ORDER BY numbers)
+FROM percentile_test;
+
+-- Listing 5-11: Using sum(), avg(), and percentile_cont() aggregate functions
+
+SELECT sum(p0010001) AS "County Sum",
+       round(avg(p0010001), 0) AS "County Average",
+       percentile_cont(.5)
+       WITHIN GROUP (ORDER BY p0010001) AS "County Median"
+FROM us_counties_2010;
