@@ -62,3 +62,15 @@ INSERT INTO schools_right (id, right_school) VALUES
     (3, 'Morrison Elementary'),
     (4, 'Chase Magnet Academy'),
     (6, 'Jefferson High School');
+
+-- Listing 6-4: Using JOIN
+
+SELECT *
+FROM schools_left JOIN schools_right
+ON schools_left.id = schools_right.id;
+
+-- Bonus: Also can be specified as INNER JOIN
+
+SELECT *
+FROM schools_left INNER JOIN schools_right
+ON schools_left.id = schools_right.id;
