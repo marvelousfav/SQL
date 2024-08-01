@@ -97,3 +97,17 @@ ON schools_left.id = schools_right.id;
 
 SELECT *
 FROM schools_left CROSS JOIN schools_right;
+
+-- Listing 6-9: Filtering to show missing values with IS NULL
+
+SELECT *
+FROM schools_left LEFT JOIN schools_right
+ON schools_left.id = schools_right.id
+WHERE schools_right.id IS NULL;
+
+-- Listing 6-10: Querying specific columns in a join
+SELECT schools_left.id,
+       schools_left.left_school,
+       schools_right.right_school
+FROM schools_left LEFT JOIN schools_right
+ON schools_left.id = schools_right.id;
