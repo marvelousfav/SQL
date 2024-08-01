@@ -82,7 +82,98 @@ INSERT INTO licenses (license_id, first_name, last_name)
 VALUES ('T229901', 'Lynn', 'Malero');
 
 INSERT INTO registrations (registration_id, registration_date, license_id)
-VALUES ('A203391', '3/17/2017', 'T229901');
+VALUES ('A203391', '2017-3-17', 'T229901');
 
 INSERT INTO registrations (registration_id, registration_date, license_id)
-VALUES ('A75772', '3/17/2017', 'T000001');
+VALUES ('A75772', '2017-3-17', 'T000001');
+
+-- Listing 7-7: CHECK constraint examples
+
+CREATE TABLE check_constraint_example (
+    user_id bigserial,
+    user_role varchar(50),
+    salary integer,
+    CONSTRAINT user_id_key PRIMARY KEY (user_id),
+    CONSTRAINT check_role_in_list CHECK (user_role IN('Admin', 'Staff')),
+    CONSTRAINT check_salary_not_zero CHECK (salary > 0)
+);
+
+-- Both of these will fail:
+INSERT INTO check_constraint_example (user_role)
+VALUES ('admin');
+
+INSERT INTO check_constraint_example (salary)
+VALUES (0);
+
+-- Listing 7-8: UNIQUE constraint example
+
+CREATE TABLE unique_constraint_example (
+    contact_id bigserial CONSTRAINT contact_id_key PRIMARY KEY,
+    first_name varchar(50),
+    last_name varchar(50),
+    email varchar(200),
+    CONSTRAINT email_unique UNIQUE (email)
+);
+
+INSERT INTO unique_constraint_example (first_name, last_name, email)
+VALUES ('Samantha', 'Lee', 'slee@example.org');
+
+INSERT INTO unique_constraint_example (first_name, last_name, email)
+VALUES ('Betty', 'Diaz', 'bdiaz@example.org');
+
+INSERT INTO unique_constraint_example (first_name, last_name, email)
+VALUES ('Sasha', 'Lee', 'slee@example.org');
+
+-- Listing 7-9: NOT NULL constraint example
+
+CREATE TABLE not_null_example (
+    student_id bigserial,
+    first_name varchar(50) NOT NULL,
+    last_name varchar(50) NOT NULL,
+    CONSTRAINT student_id_key PRIMARY KEY (student_id)
+);
+
+-- Listing 7-10: Dropping and adding a primary key and a NOT NULL constraint
+
+-- Drop
+ALTER TABLE not_null_example DROP CONSTRAINT student_id_key;
+
+-- Add
+ALTER TABLE not_null_example ADD CONSTRAINT student_id_key PRIMARY KEY (student_id);
+
+-- Drop
+ALTER TABLE not_null_example ALTER COLUMN first_name DROP NOT NULL;
+
+-- Add
+ALTER TABLE not_null_example ALTER COLUMN first_name SET NOT NULL;
+
+-- Listing 7-11: Importing New York City address data
+
+CREATE TABLE new_york_addresses (
+    longitude numeric(9,6),
+    latitude numeric(9,6),
+    street_number varchar(10),
+    street varchar(32),
+    unit varchar(7),
+    postcode varchar(5),
+    id integer CONSTRAINT new_york_key PRIMARY KEY
+);
+
+COPY new_york_addresses
+FROM 'C:\YourDirectory\city_of_new_york.csv'
+WITH (FORMAT CSV, HEADER);
+
+-- Listing 7-12: Benchmark queries for index performance
+
+EXPLAIN ANALYZE SELECT * FROM new_york_addresses
+WHERE street = 'BROADWAY';
+
+EXPLAIN ANALYZE SELECT * FROM new_york_addresses
+WHERE street = '52 STREET';
+
+EXPLAIN ANALYZE SELECT * FROM new_york_addresses
+WHERE street = 'ZWICKY AVENUE';
+
+-- Listing 7-13: Creating a B-Tree index on the new_york_addresses table
+
+CREATE INDEX street_idx ON new_york_addresses (street);
