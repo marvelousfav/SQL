@@ -80,3 +80,9 @@ ON schools_left.id = schools_right.id;
 SELECT *
 FROM schools_left LEFT JOIN schools_right
 ON schools_left.id = schools_right.id;
+
+-- Listing 6-6: Using RIGHT JOIN
+
+SELECT *
+FROM schools_left RIGHT JOIN schools_right
+ON schools_left.id = schools_right.id;
