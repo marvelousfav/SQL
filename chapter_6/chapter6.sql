@@ -86,3 +86,9 @@ ON schools_left.id = schools_right.id;
 SELECT *
 FROM schools_left RIGHT JOIN schools_right
 ON schools_left.id = schools_right.id;
+
+-- Listing 6-7: Using FULL OUTER JOIN
+
+SELECT *
+FROM schools_left FULL OUTER JOIN schools_right
+ON schools_left.id = schools_right.id;
