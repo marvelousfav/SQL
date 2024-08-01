@@ -105,6 +105,11 @@ FROM schools_left LEFT JOIN schools_right
 ON schools_left.id = schools_right.id
 WHERE schools_right.id IS NULL;
 
+--throws an error\part of listing 6.10
+SELECT id 
+FROM schools_left LEFT JOIN schools_right
+ ON schools_left.id = schools_right.id;
+
 -- Listing 6-10: Querying specific columns in a join
 SELECT schools_left.id,
        schools_left.left_school,
