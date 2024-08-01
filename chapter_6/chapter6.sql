@@ -92,3 +92,8 @@ ON schools_left.id = schools_right.id;
 SELECT *
 FROM schools_left FULL OUTER JOIN schools_right
 ON schools_left.id = schools_right.id;
+
+-- Listing 6-8: Using CROSS JOIN
+
+SELECT *
+FROM schools_left CROSS JOIN schools_right;
