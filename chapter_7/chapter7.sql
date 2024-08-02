@@ -44,7 +44,7 @@ INSERT INTO natural_key_composite_example (student_id, school_day, present)
 VALUES(775, '2017/01/23', 'Y');
 
 INSERT INTO natural_key_composite_example (student_id, school_day, present)
-VALUES(775, '2017/01/23', 'N');     -- when the date is the same you get an error
+VALUES(775, '2017/01/24', 'N');     -- when the date is the same you get an error
 
 -- Listing 7-5: Declaring a bigserial column as a surrogate key
 
@@ -160,7 +160,7 @@ CREATE TABLE new_york_addresses (
 );
 
 COPY new_york_addresses
-FROM 'C:\YourDirectory\city_of_new_york.csv'
+FROM 'C:\bootcamp.docs\5_SQL\my_work\chapter_7\city_of_new_york.csv'
 WITH (FORMAT CSV, HEADER);
 
 -- Listing 7-12: Benchmark queries for index performance
