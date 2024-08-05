@@ -24,3 +24,21 @@ CREATE INDEX company_idx ON meat_poultry_egg_inspect (company);
 
 -- Count the rows imported:
 SELECT count(*) FROM meat_poultry_egg_inspect;
+
+-- Listing 9-2: Finding multiple companies at the same address
+SELECT company,
+       street,
+       city,
+       st,
+       count(*) AS address_count
+FROM meat_poultry_egg_inspect
+GROUP BY company, street, city, st
+HAVING count(*) > 1
+ORDER BY company, street, city, st;
+
+-- Listing 9-3: Grouping and counting states
+SELECT st, 
+       count(*) AS st_count
+FROM meat_poultry_egg_inspect
+GROUP BY st
+ORDER BY st;
