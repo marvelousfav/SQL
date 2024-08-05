@@ -42,3 +42,20 @@ SELECT st,
 FROM meat_poultry_egg_inspect
 GROUP BY st
 ORDER BY st;
+
+-- Listing 9-4: Using IS NULL to find missing values in the st column
+SELECT est_number,
+       company,
+       city,
+       st,
+       zip
+FROM meat_poultry_egg_inspect
+WHERE st IS NULL;
+
+-- Listing 9-5: Using GROUP BY and count() to find inconsistent company names
+
+SELECT company,
+       count(*) AS company_count
+FROM meat_poultry_egg_inspect
+GROUP BY company
+ORDER BY company ASC;
