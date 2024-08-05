@@ -76,3 +76,20 @@ FROM meat_poultry_egg_inspect
 WHERE length(zip) < 5
 GROUP BY st
 ORDER BY st ASC;
+
+-- Listing 9-8: Backing up a table
+
+CREATE TABLE meat_poultry_egg_inspect_backup AS
+SELECT * FROM meat_poultry_egg_inspect;
+
+-- Check number of records:
+SELECT 
+    (SELECT count(*) FROM meat_poultry_egg_inspect) AS original,
+    (SELECT count(*) FROM meat_poultry_egg_inspect_backup) AS backup;
+
+-- Listing 9-9: Creating and filling the st_copy column with ALTER TABLE and UPDATE
+
+ALTER TABLE meat_poultry_egg_inspect ADD COLUMN st_copy varchar(2);
+
+UPDATE meat_poultry_egg_inspect
+SET st_copy = st;
