@@ -150,3 +150,15 @@ ALTER TABLE meat_poultry_egg_inspect ADD COLUMN zip_copy varchar(5);
 
 UPDATE meat_poultry_egg_inspect
 SET zip_copy = zip;
+
+-- Listing 9-16: Modify codes in the zip column missing two leading zeros
+
+UPDATE meat_poultry_egg_inspect
+SET zip = '00' || zip
+WHERE st IN('PR','VI') AND length(zip) = 3;
+
+-- Listing 9-17: Modify codes in the zip column missing one leading zero
+
+UPDATE meat_poultry_egg_inspect
+SET zip = '0' || zip
+WHERE st IN('CT','MA','ME','NH','NJ','RI','VT') AND length(zip) = 4;
