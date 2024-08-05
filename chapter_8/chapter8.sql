@@ -217,3 +217,23 @@ SELECT stabr
 FROM pls_fy2009_pupld09a
 GROUP BY stabr
 ORDER BY stabr;
+
+-- Listing 8-8: Using GROUP BY on the city and stabr columns
+
+SELECT city, stabr
+FROM pls_fy2014_pupld14a
+GROUP BY city, stabr
+ORDER BY city, stabr;
+
+-- Bonus: We can count some of the combos
+SELECT city, stabr, count(*)
+FROM pls_fy2014_pupld14a
+GROUP BY city, stabr
+ORDER BY count(*) DESC;
+
+-- Listing 8-9: GROUP BY with count() on the stabr column
+
+SELECT stabr, count(*)
+FROM pls_fy2014_pupld14a
+GROUP BY stabr
+ORDER BY count(*) DESC;
