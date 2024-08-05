@@ -237,3 +237,32 @@ SELECT stabr, count(*)
 FROM pls_fy2014_pupld14a
 GROUP BY stabr
 ORDER BY count(*) DESC;
+
+-- Listing 8-10: GROUP BY with count() on the stabr and stataddr columns
+
+SELECT stabr, stataddr, count(*)
+FROM pls_fy2014_pupld14a
+GROUP BY stabr, stataddr
+ORDER BY stabr ASC, count(*) DESC;
+
+-- Listing 8-11: Using the sum() aggregate function to total visits to
+-- libraries in 2014 and 2009
+
+-- 2014
+SELECT sum(visits) AS visits_2014
+FROM pls_fy2014_pupld14a
+WHERE visits >= 0;
+
+-- 2009
+SELECT sum(visits) AS visits_2009
+FROM pls_fy2009_pupld09a
+WHERE visits >= 0;
+
+-- Listing 8-12: Using sum() to total visits on joined 2014 and 2009 library tables
+
+SELECT sum(pls14.visits) AS visits_2014,
+       sum(pls09.visits) AS visits_2009
+FROM pls_fy2014_pupld14a pls14 JOIN pls_fy2009_pupld09a pls09
+ON pls14.fscskey = pls09.fscskey
+WHERE pls14.visits >= 0 AND pls09.visits >= 0;
+
