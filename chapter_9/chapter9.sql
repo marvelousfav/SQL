@@ -59,3 +59,20 @@ SELECT company,
 FROM meat_poultry_egg_inspect
 GROUP BY company
 ORDER BY company ASC;
+
+-- Listing 9-6: Using length() and count() to test the zip column
+
+SELECT length(zip),
+       count(*) AS length_count
+FROM meat_poultry_egg_inspect
+GROUP BY length(zip)
+ORDER BY length(zip) ASC;
+
+-- Listing 9-7: Filtering with length() to find short zip values
+
+SELECT st,
+       count(*) AS st_count
+FROM meat_poultry_egg_inspect
+WHERE length(zip) < 5
+GROUP BY st
+ORDER BY st ASC;
