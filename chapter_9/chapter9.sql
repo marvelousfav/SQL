@@ -133,3 +133,20 @@ ALTER TABLE meat_poultry_egg_inspect ADD COLUMN company_standard varchar(100);
 
 UPDATE meat_poultry_egg_inspect
 SET company_standard = company;
+
+-- Listing 9-14: Use UPDATE to modify field values that match a string
+
+UPDATE meat_poultry_egg_inspect
+SET company_standard = 'Armour-Eckrich Meats'
+WHERE company LIKE 'Armour%';
+
+SELECT company, company_standard
+FROM meat_poultry_egg_inspect
+WHERE company LIKE 'Armour%';
+
+-- Listing 9-15: Creating and filling the zip_copy column
+
+ALTER TABLE meat_poultry_egg_inspect ADD COLUMN zip_copy varchar(5);
+
+UPDATE meat_poultry_egg_inspect
+SET zip_copy = zip;
