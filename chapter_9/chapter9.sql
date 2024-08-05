@@ -114,3 +114,22 @@ WHERE est_number = 'M45319+P45319';
 UPDATE meat_poultry_egg_inspect
 SET st = 'WI'
 WHERE est_number = 'M263A+P263A+V263A';
+
+-- Listing 9-12: Restoring original st column values
+
+-- Restoring from the column backup
+UPDATE meat_poultry_egg_inspect
+SET st = st_copy;
+
+-- Restoring from the table backup
+UPDATE meat_poultry_egg_inspect original
+SET st = backup.st
+FROM meat_poultry_egg_inspect_backup backup
+WHERE original.est_number = backup.est_number; 
+
+-- Listing 9-13: Creating and filling the company_standard column
+
+ALTER TABLE meat_poultry_egg_inspect ADD COLUMN company_standard varchar(100);
+
+UPDATE meat_poultry_egg_inspect
+SET company_standard = company;
